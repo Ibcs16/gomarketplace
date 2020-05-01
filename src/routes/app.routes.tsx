@@ -7,6 +7,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import Dashboard from '../pages/Dashboard';
 import Cart from '../pages/Cart';
+import Splash from '../pages/Splash';
 
 import Logo from '../assets/logo.png';
 
@@ -18,8 +19,17 @@ const AppRoutes: React.FC = () => (
       headerShown: true,
       cardStyle: { backgroundColor: '#EBEEF8' },
     }}
-    initialRouteName="Dashboard"
+    initialRouteName="Splash"
   >
+    <App.Screen
+      options={{
+        headerShown: false,
+        // headerTransparent: true,
+        // headerTitle: () => <Image source={Logo} />,
+      }}
+      name="Splash"
+      component={Splash}
+    />
     <App.Screen
       options={{
         headerShown: true,

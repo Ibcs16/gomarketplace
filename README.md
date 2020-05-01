@@ -1,12 +1,16 @@
 # gomarketplace
 
-Uma lojinha para Devs
+Uma lojinha para Devs ☕
 
-# Tecnologias usadas
+# Principais tecnologias ✨
+
+- React-native
+- TypeScript
+- json-server
+- Lottie
 
 
-
-## Como executar
+## Como executar 💻
 
 Instale todos os pacotes
 

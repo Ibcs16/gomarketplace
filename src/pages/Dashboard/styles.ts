@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
-import stickerImg from '../../assets/sticker.png';
 
 interface Product {
   id: string;
@@ -112,14 +111,18 @@ export const CategoryTitle = styled.Text`
 export const PromoContainer = styled.View`
   height: 250px;
   padding: 25px;
-  background: #ededed;
-
-  /* background-image: ${stickerImg}; */
+  background: #f0efed;
+  position: relative;
+  /* background: red; */
 `;
 
 export const PromoImg = styled.Image`
-  width: 400px;
-  height: 400px;
+  width: 280px;
+  height: 280px;
+  /* background;: red; */
+  position: absolute;
+  right: -70px;
+  top: 30px;
 `;
 
 export const PromoSubTitle = styled.Text`

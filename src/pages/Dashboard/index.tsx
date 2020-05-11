@@ -1,14 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import { View, Image, FlatList, Text } from 'react-native';
+import {
+  View,
+  Image,
+  FlatList,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 
-import Icon from 'react-native-vector-icons/Feather';
+// import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import formatValue from '../../utils/formatValue';
 import { useCart } from '../../hooks/cart';
 import api from '../../services/api';
 
 import FloatingCart from '../../components/FloatingCart';
+
+import gitSticker from '../../assets/sticker.png';
 
 import {
   Container,
@@ -49,6 +59,7 @@ interface Category {
   name: string;
   icon: string;
   bgColor: string;
+  title: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -56,6 +67,8 @@ const Dashboard: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const [products, setProducts] = useState<Product[]>([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
@@ -84,7 +97,7 @@ const Dashboard: React.FC = () => {
           <PromoButton>
             <PromoButtonText> COMPRAR </PromoButtonText>
           </PromoButton>
-          {/* <PromoImg source={gitSticker} /> */}
+          <PromoImg source={gitSticker} />
         </PromoContainer>
         <CategoriesContainer>
           <SectionTitle>Categorias em alta</SectionTitle>
@@ -100,7 +113,7 @@ const Dashboard: React.FC = () => {
             renderItem={({ item }) => (
               <CategoriesItemContainer>
                 <CategoriesItem bgColor={item.bgColor}>
-                  <Icon name={item.icon} size={47} color="#fff" />
+                  <FeatherIcon name={item.icon} size={47} color="#fff" />
                 </CategoriesItem>
                 <CategoryTitle>{item.title}</CategoryTitle>
               </CategoriesItemContainer>
@@ -124,7 +137,13 @@ const Dashboard: React.FC = () => {
               }}
               renderItem={({ item }) => (
                 <Product>
-                  <ProductImage source={{ uri: item.image_url }} />
+                  <TouchableWithoutFeedback
+                    onPress={() =>
+                      navigation.navigate('Details', { itemId: item.id })
+                    }
+                  >
+                    <ProductImage source={{ uri: item.image_url }} />
+                  </TouchableWithoutFeedback>
                   <ProductTitle>{item.title}</ProductTitle>
                   <PriceContainer>
                     <ProductPrice>{formatValue(item.price)}</ProductPrice>

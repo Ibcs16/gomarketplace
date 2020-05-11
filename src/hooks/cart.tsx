@@ -66,7 +66,6 @@ const CartProvider: React.FC = ({ children }) => {
         setProducts(prev => {
           const product = prev[productIndex];
           product.quantity += 1;
-          console.log(product);
 
           prev[productIndex] = product;
 
@@ -79,6 +78,7 @@ const CartProvider: React.FC = ({ children }) => {
 
   const addToCart = useCallback(
     async (product: Product) => {
+      product.quantity = 1;
       const productIndex = products.findIndex(item => item.id === product.id);
 
       if (productIndex >= 0) {
@@ -91,7 +91,7 @@ const CartProvider: React.FC = ({ children }) => {
         setProducts([...products, product]);
       }
     },
-    [products],
+    [products, increment],
   );
 
   const decrement = useCallback(
@@ -126,7 +126,10 @@ const CartProvider: React.FC = ({ children }) => {
     return formatValue(totalValue);
   }, [products]);
 
-  const totalItensInCart = useMemo(() => products.length, [products]);
+  const totalItensInCart = useMemo(
+    () => products.map(item => item.quantity).reduce((a, b) => a + b, 0),
+    [products],
+  );
 
   const value = React.useMemo(
     () => ({
